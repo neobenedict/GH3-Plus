@@ -224,6 +224,7 @@ __declspec(naked) void loadLastHitNaked()
 
 uint32_t __stdcall loadLastHit(uint32_t pIdx)
 {
+	// Most of this probably isn't needed any more?
 	HopoFlag hopoFlag;
 
 	uint32_t *noteStruct = LoadCurrentNoteStruct(pIdx);
@@ -251,20 +252,7 @@ uint32_t __stdcall loadLastHit(uint32_t pIdx)
 			isChord = true;
 	}
 
-	//Accounting for chords here fixes an edge case that would be painful to fix in later code
-	if (hopoFlag == HopoFlag::HOPO && g_canTapLow[pIdx] && g_hitFrets[pIdx] != 0x00000 && isChord) //tapping note
-	{
-		return 0x11111111; //Impossible fretmask, guarantees that the game will think we're on a streak and can therefore hammer the next note
-	}
-
-	if (hopoFlag == HopoFlag::TAPPING && (g_canTap[pIdx] || (g_canTapLow[pIdx] && isChord))) //tapping note
-	{
-		return 0x11111111; //Impossible fretmask, guarantees that the game will think we're on a streak and can therefore hammer the next note
-	}
-	else
-	{
-		return g_hitFrets[pIdx];
-	}
+	return 0x11111111; //Impossible fretmask, guarantees that the game will think we're on a streak and can therefore hammer the next note
 
 }
 
@@ -303,8 +291,7 @@ void __stdcall setCanTapState(FretMask currFrets, FretMask prevFrets, uint32_t p
 	if (getHighFret(currFrets) != getHighFret(prevFrets))
 		g_canTap[pIdx] = true;
 
-	if (currFrets != prevFrets)
-		g_canTapLow[pIdx] = true;
+	g_canTapLow[pIdx] = true;
 }
 
 __declspec(naked) void setCanTapStateNaked()
