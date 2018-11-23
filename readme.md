@@ -3,7 +3,7 @@ GH3+
 
 GH3+ is a work in progress plugin system for Guitar Hero III written in C++.
 
-This branch provides strumless mode for use with other instruments and controllers. Only the 5 fret keys are now needed to play the game, and they will automatically strum repeated notes (ie. no "tapping" needed)
+This branch provides strumless mode for use with other instruments and controllers. Only the 5 fret keys are now needed to play the game, and they will automatically strum repeated notes (ie. no "tapping" needed.)
 
 Compile with "C:\Program Files (x86)\MSBuild\14.0\Bin\msbuild.exe" "G:\Projects\GH3-Plus-master\src\plugins\taphopochord\taphopochord.vcxproj" /p:Configuration=Release
 
